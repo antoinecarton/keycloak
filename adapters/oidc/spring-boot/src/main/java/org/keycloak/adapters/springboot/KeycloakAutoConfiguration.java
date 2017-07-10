@@ -243,6 +243,14 @@ public class KeycloakAutoConfiguration {
                 webAppContext = (WebAppContext) server.getHandler();
             }
 
+            if (keycloakProperties.getConfig().containsKey("resolver")) {
+                String keycloakConfigResolver = (String) keycloakProperties.getConfig().get("resolver");
+                webAppContext.setInitParameter("keycloak.config.resolver", keycloakConfigResolver);
+            } else {
+                keycloakJettyAuthenticator.setConfigResolver(new KeycloakSpringBootConfigResolver());
+                webAppContext.setInitParameter("keycloak.config.resolver", KeycloakSpringBootConfigResolver.class.getName());
+            }
+
             ConstraintSecurityHandler securityHandler = new ConstraintSecurityHandler();
             securityHandler.setConstraintMappings(jettyConstraintMappings);
             securityHandler.setAuthenticator(keycloakJettyAuthenticator);
