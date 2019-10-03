@@ -18,21 +18,37 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <parent>
-    <artifactId>keycloak-parent</artifactId>
-    <groupId>org.keycloak</groupId>
-    <version>6.0.1</version>
-    <relativePath>../../../pom.xml</relativePath>
-  </parent>
+<!--  <parent>-->
+<!--    <artifactId>keycloak-parent</artifactId>-->
+<!--    <groupId>org.keycloak</groupId>-->
+<!--    <version>6.0.1</version>-->
+<!--    <relativePath>../../../pom.xml</relativePath>-->
+<!--  </parent>-->
   <modelVersion>4.0.0</modelVersion>
 
+  <groupId>org.keycloak</groupId>
+  <version>6.0.1.MULTI-TENANCY-20190926</version>
   <artifactId>keycloak-spring-boot-adapter-core</artifactId>
   <name>Keycloak Spring Boot Adapter Core</name>
   <description/>
 
   <properties>
     <spring-boot.version>1.5.16.RELEASE</spring-boot.version>
+    <jetty9.version>9.4.2.v20170220</jetty9.version>
   </properties>
+
+  <dependencyManagement>
+    <!-- Add keycloak-parent as dependencyManagement to avoid parent that blocks custom release -->
+    <dependencies>
+      <dependency>
+        <groupId>org.keycloak</groupId>
+        <artifactId>keycloak-parent</artifactId>
+        <version>6.0.1</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -46,14 +62,14 @@
     <dependency>
       <groupId>org.keycloak</groupId>
       <artifactId>spring-boot-container-bundle</artifactId>
-      <version>${project.version}</version>
+      <version>6.0.1</version>
       <optional>true</optional>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.keycloak</groupId>
       <artifactId>keycloak-spring-security-adapter</artifactId>
-      <version>${project.version}</version>
+      <version>6.0.1</version>
       <scope>compile</scope>
       <optional>true</optional>
     </dependency>

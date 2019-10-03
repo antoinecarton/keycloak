@@ -117,7 +117,7 @@ public class KeycloakBaseSpringBootConfiguration {
         public void customize(Server server) {
 
             KeycloakJettyAuthenticator keycloakJettyAuthenticator = new KeycloakJettyAuthenticator();
-            keycloakJettyAuthenticator.setConfigResolver(new KeycloakSpringBootConfigResolverWrapper());
+//            keycloakJettyAuthenticator.setConfigResolver(new KeycloakSpringBootConfigResolverWrapper());
 
             /* see org.eclipse.jetty.webapp.StandardDescriptorProcessor#visitSecurityConstraint for an example
                on how to map servlet spec to Constraints */
@@ -182,6 +182,14 @@ public class KeycloakBaseSpringBootConfiguration {
             //if not found as registered bean let's try the handler
             if(webAppContext==null){
                 webAppContext = getWebAppContext(server.getHandlers());
+            }
+
+            if (keycloakProperties.getConfig().containsKey("resolver")) {
+                String keycloakConfigResolver = (String) keycloakProperties.getConfig().get("resolver");
+                webAppContext.setInitParameter("keycloak.config.resolver", keycloakConfigResolver);
+            } else {
+                keycloakJettyAuthenticator.setConfigResolver(new KeycloakSpringBootConfigResolver());
+                webAppContext.setInitParameter("keycloak.config.resolver", KeycloakSpringBootConfigResolver.class.getName());
             }
 
             ConstraintSecurityHandler securityHandler = new ConstraintSecurityHandler();

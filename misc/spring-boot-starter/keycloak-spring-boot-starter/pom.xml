@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.keycloak</groupId>
-        <artifactId>keycloak-spring-boot-starter-parent</artifactId>
-        <version>6.0.1</version>
-    </parent>
+<!--    <parent>-->
+<!--        <groupId>org.keycloak</groupId>-->
+<!--        <artifactId>keycloak-spring-boot-starter-parent</artifactId>-->
+<!--        <version>6.0.1</version>-->
+<!--    </parent>-->
+    <groupId>org.keycloak</groupId>
+    <version>6.0.1.MULTI-TENANCY-20190926</version>
     <artifactId>keycloak-spring-boot-starter</artifactId>
     <name>Keycloak :: Spring :: Boot :: Default ::  Starter</name>
     <description>Spring Boot Default Starter for Keycloak</description>
+
+    <dependencyManagement>
+        <!-- Add keycloak-parent as dependencyManagement to avoid parent that blocks custom release -->
+        <dependencies>
+            <dependency>
+                <groupId>org.keycloak</groupId>
+                <artifactId>keycloak-parent</artifactId>
+                <version>6.0.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <properties>
       <spring-boot.version>2.0.3.RELEASE</spring-boot.version>
@@ -18,6 +33,7 @@
       <dependency>
           <groupId>org.keycloak</groupId>
           <artifactId>keycloak-spring-boot-2-adapter</artifactId>
+          <version>6.0.1.MULTI-TENANCY-20190926</version>
       </dependency>
         <dependency>
             <groupId>org.keycloak</groupId>
@@ -27,14 +43,16 @@
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter</artifactId>
           <version>${spring-boot.version}</version>
-      </dependency>    
+      </dependency>
       <dependency>
           <groupId>org.keycloak</groupId>
           <artifactId>spring-boot-container-bundle</artifactId>
+          <version>6.0.1</version>
       </dependency>
       <dependency>
           <groupId>org.keycloak</groupId>
           <artifactId>keycloak-spring-security-adapter</artifactId>
+          <version>6.0.1</version>
       </dependency>
     </dependencies>
 </project>

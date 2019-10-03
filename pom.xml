@@ -959,7 +959,7 @@
             <dependency>
                 <groupId>org.keycloak</groupId>
                 <artifactId>keycloak-spring-boot-adapter-core</artifactId>
-                <version>${project.version}</version>
+                <version>6.0.1.MULTI-TENANCY-20190926</version>
             </dependency>
             <dependency>
                 <groupId>org.keycloak</groupId>
